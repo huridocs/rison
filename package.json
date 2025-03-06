@@ -3,13 +3,9 @@
   "version": "2.1.1",
   "main": "js/rison.js",
   "scripts": {
-    "preversion": "npm run test",
-    "version": "npm-auto-version",
     "test:only": "tape \"tests/*.js\"",
     "test": "npm run lint && npm run test:only",
-    "lint": "eslint \"js/*.js\" \"tests/*.js\"",
-    "precommit": "lint-staged",
-    "prepush": "npm run test"
+    "lint": "eslint \"js/*.js\" \"tests/*.js\""
   },
   "author": "HURIDOCS",
   "description": "data serialization format optimized for compactness in URIs",
@@ -44,12 +40,10 @@
     "trailingComma": "es5"
   },
   "devDependencies": {
-    "@w33ble/npm-auto-tools": "*",
     "eslint": "^4.19.1",
     "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-prettier": "^2.6.0",
-    "husky": "^0.14.3",
-    "lint-staged": "^7.0.4",
+    "np": "^10.2.0",
     "prettier": "^1.12.0",
     "tape": "^4.2.2"
   }
