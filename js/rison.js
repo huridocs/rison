@@ -132,7 +132,6 @@
    * this is like decodeURIComponent() but also replaces "+" with " "
    */
   rison.unquote = function(s) {
-    // eslint-disable-next-line
     return decodeURIComponent(s.replace(/\+/g, '%20'));
   };
 

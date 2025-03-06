@@ -40,11 +40,14 @@
     "trailingComma": "es5"
   },
   "devDependencies": {
-    "eslint": "^4.19.1",
-    "eslint-config-prettier": "^2.9.0",
-    "eslint-plugin-prettier": "^2.6.0",
+    "@eslint/eslintrc": "^3.3.0",
+    "@eslint/js": "^9.21.0",
+    "eslint": "^9.21.0",
+    "eslint-config-prettier": "^10.0.2",
+    "eslint-plugin-prettier": "^5.2.3",
+    "globals": "^16.0.0",
     "np": "^10.2.0",
-    "prettier": "^1.12.0",
-    "tape": "^4.2.2"
+    "prettier": "^3.5.3",
+    "tape": "^5.9.0"
   }
 }
