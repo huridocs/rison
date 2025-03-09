@@ -1,6 +1,6 @@
 // Uses CommonJS, AMD or browser globals to create a module.
 // Based on: https://github.com/umdjs/umd/blob/master/templates/returnExports.js
-(function(root, factory) {
+(function (root, factory) {
   if (typeof exports === 'object' && typeof module !== 'undefined') {
     // CommonJS
     module.exports = factory();
@@ -11,7 +11,7 @@
     // Browser globals
     root.rison = factory();
   }
-})(typeof self !== 'undefined' ? self : this, function() {
+})(typeof self !== 'undefined' ? self : this, function () {
   var rison = {};
 
   //////////////////////////////////////////////////
@@ -62,7 +62,7 @@
   // this var isn't actually used
   //rison.idchar_punctuation = "_-./~";
 
-  (function() {
+  (function () {
     var l = [];
     for (var hi = 0; hi < 16; hi++) {
       for (var lo = 0; lo < 16; lo++) {
@@ -91,7 +91,7 @@
    */
   rison.not_idstart = '-0123456789';
 
-  (function() {
+  (function () {
     var idrx =
       '[^' +
       rison.not_idstart +
@@ -116,7 +116,7 @@
    * rison.quote also passes   ,:@$/
    *   and quotes " " as "+" instead of "%20"
    */
-  rison.quote = function(x) {
+  rison.quote = function (x) {
     if (/^[-A-Za-z0-9~!*()_.',:@$/]*$/.test(x)) return x;
 
     return encodeURIComponent(x)
@@ -131,7 +131,7 @@
   /**
    * this is like decodeURIComponent() but also replaces "+" with " "
    */
-  rison.unquote = function(s) {
+  rison.unquote = function (s) {
     return decodeURIComponent(s.replace(/\+/g, '%20'));
   };
 
@@ -142,19 +142,19 @@
   //  hacked by nix for use in uris.
   //
 
-  (function() {
+  (function () {
     var sq = {
         // url-ok but quoted in strings
         "'": true,
         '!': true,
       },
-      enc = function(v) {
+      enc = function (v) {
         if (v && typeof v.toJSON === 'function') v = v.toJSON();
         var fn = s[typeof v];
         if (fn) return fn(v);
       },
       s = {
-        array: function(x) {
+        array: function (x) {
           var a = ['!('],
             b,
             i,
@@ -173,19 +173,19 @@
           a[a.length] = ')';
           return a.join('');
         },
-        boolean: function(x) {
+        boolean: function (x) {
           if (x) return '!t';
           return '!f';
         },
-        null: function() {
+        null: function () {
           return '!n';
         },
-        number: function(x) {
+        number: function (x) {
           if (!isFinite(x)) return '!n';
           // strip '+' out of exponent, '-' is ok though
           return String(x).replace(/\+/, '');
         },
-        object: function(x) {
+        object: function (x) {
           if (x) {
             if (x instanceof Array) {
               return s.array(x);
@@ -226,18 +226,18 @@
           }
           return '!n';
         },
-        string: function(x) {
+        string: function (x) {
           if (x === '') return "''";
 
           if (rison.id_ok.test(x)) return x;
 
-          x = x.replace(/(['!])/g, function(a, b) {
+          x = x.replace(/(['!])/g, function (a, b) {
             if (sq[b]) return '!' + b;
             return b;
           });
           return "'" + x + "'";
         },
-        undefined: function() {
+        undefined: function () {
           // ignore undefined just like JSON
           return;
         },
@@ -250,7 +250,7 @@
      *    http://json.org/json.js as of 2006-04-28 from json.org
      *
      */
-    rison.encode = function(v) {
+    rison.encode = function (v) {
       return enc(v);
     };
 
@@ -258,7 +258,7 @@
      * rison-encode a javascript object without surrounding parens
      *
      */
-    rison.encode_object = function(v) {
+    rison.encode_object = function (v) {
       if (typeof v != 'object' || v === null || v instanceof Array)
         throw new Error('rison.encode_object expects an object argument');
       var r = s[typeof v](v);
@@ -269,7 +269,7 @@
      * rison-encode a javascript array without surrounding parens
      *
      */
-    rison.encode_array = function(v) {
+    rison.encode_array = function (v) {
       if (!(v instanceof Array))
         throw new Error('rison.encode_array expects an array argument');
       var r = s[typeof v](v);
@@ -280,7 +280,7 @@
      * rison-encode and uri-encode a javascript structure
      *
      */
-    rison.encode_uri = function(v) {
+    rison.encode_uri = function (v) {
       return rison.quote(s[typeof v](v));
     };
 
@@ -289,7 +289,7 @@
      * Reverses encode_uri
      *
      */
-    rison.decode_uri = function(s) {
+    rison.decode_uri = function (s) {
       return rison.decode(rison.unquote(s));
     };
   })();
@@ -311,8 +311,8 @@
    *  based on Oliver Steele's OpenLaszlo-JSON
    *     http://osteele.com/sources/openlaszlo/json
    */
-  rison.decode = function(r) {
-    var errcb = function(e) {
+  rison.decode = function (r) {
+    var errcb = function (e) {
       throw Error('rison decoder error: ' + e);
     };
     // validate input is a string
@@ -326,7 +326,7 @@
    *
    * this simply adds parentheses around the string before parsing.
    */
-  rison.decode_object = function(r) {
+  rison.decode_object = function (r) {
     return rison.decode('(' + r + ')');
   };
 
@@ -335,7 +335,7 @@
    *
    * this simply adds array markup around the string before parsing.
    */
-  rison.decode_array = function(r) {
+  rison.decode_array = function (r) {
     return rison.decode('!(' + r + ')');
   };
 
@@ -347,7 +347,7 @@
    *        use rison.decode instead.
    * @see rison.decode
    */
-  rison.parser = function(errcb) {
+  rison.parser = function (errcb) {
     this.errorHandler = errcb;
   };
 
@@ -359,14 +359,14 @@
   rison.parser.WHITESPACE = '';
 
   // expose this as-is?
-  rison.parser.prototype.setOptions = function(options) {
+  rison.parser.prototype.setOptions = function (options) {
     if (options['errorHandler']) this.errorHandler = options.errorHandler;
   };
 
   /**
    * parse a rison string into a javascript structure.
    */
-  rison.parser.prototype.parse = function(str) {
+  rison.parser.prototype.parse = function (str) {
     this.string = str;
     this.index = 0;
     this.message = null;
@@ -380,12 +380,12 @@
     return value;
   };
 
-  rison.parser.prototype.error = function(message) {
+  rison.parser.prototype.error = function (message) {
     this.message = message;
     return undefined;
   };
 
-  rison.parser.prototype.readValue = function() {
+  rison.parser.prototype.readValue = function () {
     var c = this.next();
     var fn = c && this.table[c];
 
@@ -413,7 +413,7 @@
     return this.error('empty expression');
   };
 
-  rison.parser.parse_array = function(parser) {
+  rison.parser.parse_array = function (parser) {
     var ar = [];
     var c;
     while ((c = parser.next()) !== ')') {
@@ -438,7 +438,7 @@
   };
 
   rison.parser.prototype.table = {
-    '!': function() {
+    '!': function () {
       var s = this.string;
       var c = s.charAt(this.index++);
       if (!c) return this.error('"!" at end of input');
@@ -450,7 +450,7 @@
       }
       return x;
     },
-    '(': function() {
+    '(': function () {
       var o = {};
       var c;
       var count = 0;
@@ -470,7 +470,7 @@
       }
       return o;
     },
-    "'": function() {
+    "'": function () {
       var s = this.string;
       var i = this.index;
       var start = i;
@@ -496,7 +496,7 @@
     },
     // Also any digit.  The statement that follows this table
     // definition fills in the digits.
-    '-': function() {
+    '-': function () {
       var s = this.string;
       var i = this.index;
       var start = i - 1;
@@ -525,12 +525,12 @@
     },
   };
   // copy table['-'] to each of table[i] | i <- '0'..'9':
-  (function(table) {
+  (function (table) {
     for (var i = 0; i <= 9; i++) table[String(i)] = table['-'];
   })(rison.parser.prototype.table);
 
   // return the next non-whitespace character, or undefined
-  rison.parser.prototype.next = function() {
+  rison.parser.prototype.next = function () {
     var c;
     var s = this.string;
     var i = this.index;
