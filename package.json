@@ -5,7 +5,8 @@
   "scripts": {
     "test:only": "tape \"tests/*.js\"",
     "test": "npm run lint && npm run test:only",
-    "lint": "eslint \"js/*.js\" \"tests/*.js\""
+    "lint": "eslint \"js/*.js\" \"tests/*.js\"",
+    "publish_to_npm": "np --access=public --testScript test"
   },
   "author": "HURIDOCS",
   "description": "data serialization format optimized for compactness in URIs",
