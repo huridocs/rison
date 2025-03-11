@@ -1,6 +1,6 @@
 {
   "name": "@huridocs/rison",
-  "version": "2.1.2",
+  "version": "2.1.1",
   "main": "js/rison.js",
   "scripts": {
     "test:only": "tape \"tests/*.js\"",
