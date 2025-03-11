@@ -1,22 +1,19 @@
 {
-  "name": "rison-node",
+  "name": "@huridocs/rison",
   "version": "2.1.1",
   "main": "js/rison.js",
   "scripts": {
-    "preversion": "npm run test",
-    "version": "npm-auto-version",
     "test:only": "tape \"tests/*.js\"",
     "test": "npm run lint && npm run test:only",
     "lint": "eslint \"js/*.js\" \"tests/*.js\"",
-    "precommit": "lint-staged",
-    "prepush": "npm run test"
+    "publish_to_npm": "np --access=public --testScript test"
   },
-  "author": "Joe Fleming (https://github.com/w33ble)",
+  "author": "HURIDOCS",
   "description": "data serialization format optimized for compactness in URIs",
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/w33ble/rison-node.git"
+    "url": "https://github.com/huridocs/rison"
   },
   "files": [
     "js",
@@ -44,13 +41,14 @@
     "trailingComma": "es5"
   },
   "devDependencies": {
-    "@w33ble/npm-auto-tools": "*",
-    "eslint": "^4.19.1",
-    "eslint-config-prettier": "^2.9.0",
-    "eslint-plugin-prettier": "^2.6.0",
-    "husky": "^0.14.3",
-    "lint-staged": "^7.0.4",
-    "prettier": "^1.12.0",
-    "tape": "^4.2.2"
+    "@eslint/eslintrc": "^3.3.0",
+    "@eslint/js": "^9.21.0",
+    "eslint": "^9.21.0",
+    "eslint-config-prettier": "^10.0.2",
+    "eslint-plugin-prettier": "^5.2.3",
+    "globals": "^16.0.0",
+    "np": "^10.2.0",
+    "prettier": "^3.5.3",
+    "tape": "^5.9.0"
   }
 }
