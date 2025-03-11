@@ -9,3 +9,4 @@
 - Casey Webb ([caseyWebb](https://github.com/caseyWebb))
 - fabio-looker ([fabio-looker](https://github.com/fabio-looker))
 - willetvary ([willetvary](https://github.com/willetvary))
+- Joe Fleming ([(w33ble)](https://github.com/w33ble))
